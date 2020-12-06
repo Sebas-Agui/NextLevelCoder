@@ -1,5 +1,6 @@
 import pygame
 from os import path
+from components.block import Block
 from components.ball import Ball
 from components.player import Player
 from utils.text_utils import draw_text
@@ -38,24 +39,28 @@ class Game:
         self.balls = pygame.sprite.Group()
         self.player = Player(self)
         self.all_sprites.add(self.player)
+        self.block=Block(self)
+        self.all_sprites.add(self.block)
 
         balls= pygame.sprite.Group()
         ball = Ball(1)
         self.all_sprites.add(ball)
         self.balls.add(ball)
 
+
     def update(self):
         self.all_sprites.update()
         hits = pygame.sprite.spritecollide(self.player, self.balls, False)
         if hits:
             self.playing= False
-        hits= pygame.sprite.groupcollide(self.balls, self.player.bullets, True, True)
+        hits= pygame.sprite.groupcollide(self.balls, self.player.bullets,True, True)
         for hit in hits:
             if hit.size < 4:
                 for i in range (0, 2):
                     ball = Ball(hit.size + 1)
                     self.all_sprites.add(ball)
                     self.balls.add(ball)
+
 
 
 
@@ -96,5 +101,5 @@ class Game:
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_RETURN:
                         waiting = False
-
+# Buenos dias, no pude acabar la tarea porque estuve ocupado con unas cosas de mi colegio, voy a subir hasta donde acabe, muchas gracias
 
